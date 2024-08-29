@@ -1,13 +1,14 @@
 pipeline {
   agent any
   stages {
-    stage('version') {
+    stage('Checkout') {
       steps {
-        sh 'python3 --version'
+        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Raiyan-sharif', url: 'https://github.com/Raiyan-sharif/python_jenkins_demo_project.git']])
       }
     }
-    stage('hello') {
+    stage('Build') {
       steps {
+        git branch: 'main', credentialsId: 'Raiyan-sharif', url: 'https://github.com/Raiyan-sharif/python_jenkins_demo_project.git'
         sh 'python3 hello.py'
       }
     }
